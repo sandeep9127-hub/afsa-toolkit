@@ -9,17 +9,52 @@ export const metadata: Metadata = {
 
 const ENTRY_TOOLS = [
   {
-    name: "Agroecology Principles Scorecard",
-    href: "/tools/scorecard#enter",
-    enter: "Score the 13 principles 0–4 with your community and note why",
-    output: "Radar diagram PNG + scorecard report",
-    phase: "Diagnosing",
+    name: "Stakeholder Mapping",
+    href: "/tools/stakeholder-mapping#enter",
+    enter: "Actors with their interest, power and role",
+    output: "Power × interest grid PNG + actor table report",
+    phase: "Pre-phase",
+  },
+  {
+    name: "Village Selection Matrix",
+    href: "/tools/village-selection#enter",
+    enter: "Villages × criteria ticks, mark your selection",
+    output: "Matrix PNG + coverage report",
+    phase: "Pre-phase",
+  },
+  {
+    name: "Transect Walk",
+    href: "/tools/transect-walk#enter",
+    enter: "Each niche you walked: soil, observations, 20-year change",
+    output: "Transect strip PNG + niche table report",
+    phase: "Scoping",
+  },
+  {
+    name: "Diet Quality — indicators",
+    href: "/tools/dqq#enter",
+    enter: "Aggregated DQQ indicators computed from your Kobo export",
+    output: "Benchmark comparison PNG (vs India) + report",
+    phase: "Scoping",
+  },
+  {
+    name: "Key Informants' Interviews",
+    href: "/tools/kii#enter",
+    enter: "Each interview: informant, insight, telling quote",
+    output: "Voices board PNG + interview table report",
+    phase: "Scoping",
   },
   {
     name: "Seasonal Calendar of Food",
     href: "/tools/seasonal-calendar#enter",
     enter: "Tap each food group × season: scarce, partial or abundant",
     output: "Calendar grid PNG + season-by-season report",
+    phase: "Diagnosing",
+  },
+  {
+    name: "Service Mapping & Ranking",
+    href: "/tools/service-mapping#enter",
+    enter: "Each service with its distance and a 1–5 satisfaction rating",
+    output: "Radial service map PNG + ranked services report",
     phase: "Diagnosing",
   },
   {
@@ -30,11 +65,46 @@ const ENTRY_TOOLS = [
     phase: "Diagnosing",
   },
   {
-    name: "Service Mapping & Ranking",
-    href: "/tools/service-mapping#enter",
-    enter: "Each service with its distance and a 1–5 satisfaction rating",
-    output: "Radial service map PNG + ranked services report",
+    name: "Rapid Survey — snapshot",
+    href: "/tools/rapid-survey#enter",
+    enter: "Key household shares computed from your Kobo export",
+    output: "Snapshot bars PNG + findings report",
     phase: "Diagnosing",
+  },
+  {
+    name: "Track a Food",
+    href: "/tools/track-a-food#enter",
+    enter: "Each value-chain step: actor, technology, waste, value per unit",
+    output: "Chain + value bars PNG + step table report",
+    phase: "Diagnosing",
+  },
+  {
+    name: "Market Walk",
+    href: "/tools/market-walk#enter",
+    enter: "Observations per market section",
+    output: "Observation board PNG + findings report",
+    phase: "Diagnosing",
+  },
+  {
+    name: "Agroecology Principles Scorecard",
+    href: "/tools/scorecard#enter",
+    enter: "Score the 13 principles 0–4 with your community and note why",
+    output: "Radar diagram PNG + scorecard report",
+    phase: "Diagnosing",
+  },
+  {
+    name: "Causal Loop Diagram builder",
+    href: "/tools/causal-loop#enter",
+    enter: "Your system's variables and +/− links between them",
+    output: "Loop diagram PNG with auto-detected leverage point + report",
+    phase: "Diagnosing",
+  },
+  {
+    name: "Community Visioning",
+    href: "/tools/visioning#enter",
+    enter: "Present-tense vision statements from the three circles + agreed actions",
+    output: "Vision board PNG + statements & actions report",
+    phase: "Visioning",
   },
 ];
 
@@ -95,7 +165,7 @@ export default function OnlineToolsPage() {
               href={t.href}
               className="group rounded-(--radius-soft) border border-teal-200 bg-white p-5 hover:border-coral-400 hover:shadow-md transition-all"
             >
-              <p className="text-[11px] font-bold text-navy/50">PHASE 2 · {t.phase.toUpperCase()}</p>
+              <p className="text-[11px] font-bold text-navy/50">{t.phase.toUpperCase()}</p>
               <h3 className="font-bold text-teal-900 mt-1 group-hover:text-teal-600 transition-colors">{t.name}</h3>
               <p className="text-sm text-navy/75 mt-2 leading-relaxed"><span className="font-semibold text-navy/55">You enter:</span> {t.enter}</p>
               <p className="text-sm text-navy/75 mt-1 leading-relaxed"><span className="font-semibold text-navy/55">You download:</span> {t.output}</p>

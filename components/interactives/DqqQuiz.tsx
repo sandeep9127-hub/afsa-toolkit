@@ -1,12 +1,109 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { DQQ_ITEMS, DQQ_INDIA, DQQ_KHETLAPUR } from "@/data/khetlapur";
+import { useMemo, useRef, useState } from "react";
+import { DQQ_ITEMS, DQQ_INDIA, DQQ_KHETLAPUR, type DqqBenchmark } from "@/data/khetlapur";
+import { useLocalState } from "@/lib/useLocalState";
+import { rowsToTable } from "@/lib/exportReport";
+import { ModeTabs, MetaFields, ChartCaption, ExportBar, useMeta, useMode } from "@/components/Assess";
 
 const FOOD_ITEMS = DQQ_ITEMS.filter((i) => !i.risk);
 const RISK_ITEMS = DQQ_ITEMS.filter((i) => i.risk);
 
+const INDICATORS: { key: keyof DqqBenchmark; label: string; max: number; pct?: boolean; lowerBetter?: boolean }[] = [
+  { key: "dds", label: "Dietary diversity (of 10)", max: 10 },
+  { key: "mdd", label: "MDD — % with ≥5 groups", max: 100, pct: true },
+  { key: "all5", label: "All-5 — % with all five", max: 100, pct: true },
+  { key: "protect", label: "NCD-Protect (of 9)", max: 9 },
+  { key: "risk", label: "NCD-Risk (of 9)", max: 9, lowerBetter: true },
+  { key: "gdr", label: "GDR score (of 18)", max: 18 },
+  { key: "zeroVegFruit", label: "Zero veg or fruit — %", max: 100, pct: true, lowerBetter: true },
+];
+
+const EMPTY_RESULTS: DqqBenchmark = { dds: 0, mdd: 0, all5: 0, protect: 0, risk: 0, gdr: 9, zeroVegFruit: 0 };
+
+function YourDqqResults() {
+  const [results, setResults] = useLocalState<DqqBenchmark>("afsa.dqq.results", EMPTY_RESULTS);
+  const [meta, setMeta] = useMeta();
+  const chartRef = useRef<HTMLDivElement>(null);
+
+  const set = (key: keyof DqqBenchmark, v: number) => setResults({ ...results, [key]: v });
+
+  const tableHtml = () =>
+    rowsToTable(
+      ["Indicator", meta.landscape || "Your landscape", "Khetlapur (fictional)", "India national (2021)"],
+      INDICATORS.map((ind) => [
+        ind.label,
+        `${results[ind.key]}${ind.pct ? "%" : ""}`,
+        `${DQQ_KHETLAPUR[ind.key]}${ind.pct ? "%" : ""}`,
+        `${DQQ_INDIA[ind.key]}${ind.pct ? "%" : ""}`,
+      ])
+    );
+
+  return (
+    <div>
+      <div className="mb-5 rounded-(--radius-soft) border border-coral-400/50 bg-coral-400/8 p-4">
+        <MetaFields meta={meta} setMeta={setMeta} />
+        <p className="mt-3 text-xs text-navy/70 leading-relaxed">
+          Collect the DQQ itself in <strong>KoboToolbox</strong>; compute the indicators from its export, then
+          enter the aggregated values here to generate a comparison figure for your report.
+        </p>
+      </div>
+
+      <div className="rounded-(--radius-soft) border border-teal-200 bg-white p-4">
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {INDICATORS.map((ind) => (
+            <label key={ind.key} className="block">
+              <span className="text-[11px] font-bold text-navy/60 leading-tight block">{ind.label.toUpperCase()}</span>
+              <input
+                type="number" min={0} max={ind.max} step={ind.pct ? 1 : 0.1}
+                value={results[ind.key] || ""}
+                placeholder="0"
+                onChange={(e) => set(ind.key, Math.max(0, Math.min(ind.max, Number(e.target.value) || 0)))}
+                className="mt-1 w-full rounded-lg border border-teal-200 bg-white px-3 py-2 text-sm focus:outline-none focus:border-teal-600"
+              />
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <div ref={chartRef} className="mt-4 rounded-(--radius-soft) border border-teal-200 bg-white p-5">
+        <ChartCaption meta={meta} toolName="Diet Quality — DQQ indicators vs benchmarks" />
+        <div className="space-y-3.5">
+          {INDICATORS.map((ind) => {
+            const rows = [
+              { label: meta.landscape || "Your landscape", v: results[ind.key], cls: "bg-coral-400" },
+              { label: "Khetlapur", v: DQQ_KHETLAPUR[ind.key], cls: "bg-teal-400" },
+              { label: "India", v: DQQ_INDIA[ind.key], cls: "bg-peri-500" },
+            ];
+            return (
+              <div key={ind.key}>
+                <p className="text-xs font-semibold text-teal-900">{ind.label}{ind.lowerBetter ? " · lower is better" : ""}</p>
+                <div className="mt-1 space-y-1">
+                  {rows.map((r) => (
+                    <div key={r.label} className="flex items-center gap-2">
+                      <span className="w-28 shrink-0 text-[11px] text-navy/60 truncate">{r.label}</span>
+                      <div className="flex-1 h-3 rounded-full bg-teal-50 overflow-hidden">
+                        <div className={`h-full rounded-full ${r.cls}`} style={{ width: `${Math.min(100, (r.v / ind.max) * 100)}%` }} />
+                      </div>
+                      <span className="w-12 text-right text-[11px] font-bold tabular-nums text-navy/80">{r.v}{ind.pct ? "%" : ""}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="mt-5">
+        <ExportBar chartRef={chartRef} meta={meta} toolName="Diet Quality Questionnaire — Indicators" filename="afsa-dqq-indicators" getTableHtml={tableHtml} />
+      </div>
+    </div>
+  );
+}
+
 export default function DqqQuiz() {
+  const [mode, setMode] = useMode();
   const [checked, setChecked] = useState<Set<string>>(new Set());
   const toggle = (id: string) =>
     setChecked((prev) => {
@@ -34,6 +131,7 @@ export default function DqqQuiz() {
   }, [checked]);
 
   const touched = checked.size > 0;
+  const yoursMode = mode === "yours";
 
   const Row = ({ label, you, khet, india, max, good }: { label: string; you: string; khet: string; india: string; max?: string; good?: boolean | null }) => (
     <tr className="border-t border-peri-200/60">
@@ -45,6 +143,14 @@ export default function DqqQuiz() {
   );
 
   return (
+    <div>
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
+        <ModeTabs mode={mode} setMode={setMode} />
+        {yoursMode && <span className="text-xs text-navy/60">Enter the indicators computed from your KoboToolbox collection.</span>}
+      </div>
+      {yoursMode ? (
+        <YourDqqResults />
+      ) : (
     <div className="grid gap-5 lg:grid-cols-[7fr_5fr]">
       <div className="rounded-(--radius-soft) border border-teal-200 bg-white p-4 sm:p-5">
         <p className="text-sm font-semibold text-teal-900 mb-3">
@@ -138,6 +244,8 @@ export default function DqqQuiz() {
           </p>
         </div>
       </div>
+    </div>
+      )}
     </div>
   );
 }
