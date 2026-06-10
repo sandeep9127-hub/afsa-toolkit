@@ -156,8 +156,8 @@ export const TOOLS: Tool[] = [
     ],
     steps: [
       "Download the country-adapted DQQ (dietquality.org) in the local language.",
-      "Ask the respondent to recall everything eaten yesterday, from waking to night.",
-      "For each food group consumed, record the source: own/farm, market, gathered, or support.",
+      "Set the survey up in KoboToolbox for offline mobile collection — data collection and aggregation happen there, not in this toolkit. (The interactive below is for learning the indicators.)",
+      "Ask the respondent to recall everything eaten yesterday, from waking to night; for each food group consumed, record the source: own/farm, market, gathered, or support.",
       "Survey at least 20 community members per village, across the stratified sample.",
     ],
     discussion: [
@@ -326,9 +326,9 @@ export const TOOLS: Tool[] = [
       "Reflect on how experience, access and gender affect food quality and availability",
     ],
     steps: [
+      "Set the survey up in KoboToolbox for offline mobile collection — like the DQQ, this is a per-household digital survey collected and aggregated in Kobo, not in this toolkit.",
       "Survey crops, seasons, irrigation and livestock ownership.",
-      "Record income by source (crops, NTFP, livestock, business, wages, salary, leasing, remittance), loans, reasons and interest rates.",
-      "Record expenditure: food and consumables (last week), utilities, rent, transport (last month), health, education, festivals (last year).",
+      "Record income by source (crops, NTFP, livestock, business, wages, salary, leasing, remittance), loans, reasons and interest rates; and expenditure: food and consumables (last week), utilities, rent, transport (last month), health, education, festivals (last year).",
       "Checklist production practices: seed sources and treatment, fertilisers (synthetic and bio), pest management, intercropping, mulching, residue management, kitchen gardens, marketing and group membership.",
     ],
     discussion: [
