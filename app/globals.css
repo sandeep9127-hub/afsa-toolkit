@@ -49,6 +49,25 @@ h1, h2, h3, h4 {
   letter-spacing: -0.015em;
 }
 
+/* Inputs get a calm branded focus ring instead of the default blue outline */
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  border-color: var(--color-teal-600);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-teal-400) 45%, transparent);
+}
+
+/* Respect users who prefer less motion — disables the leverage-point pulse etc. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* ——— Print styles: tool pages collapse to ink-friendly field templates ——— */
 .print-only {
   display: none;

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PencilIcon } from "@/components/Icons";
 
 export const metadata: Metadata = {
   title: "Online Tools · AFSA Toolkit",
@@ -169,7 +170,10 @@ export default function OnlineToolsPage() {
               <h3 className="font-bold text-teal-900 mt-1 group-hover:text-teal-600 transition-colors">{t.name}</h3>
               <p className="text-sm text-navy/75 mt-2 leading-relaxed"><span className="font-semibold text-navy/55">You enter:</span> {t.enter}</p>
               <p className="text-sm text-navy/75 mt-1 leading-relaxed"><span className="font-semibold text-navy/55">You download:</span> {t.output}</p>
-              <p className="text-sm font-semibold text-coral-400 mt-3">✎ Open in entry mode →</p>
+              <p className="inline-flex items-center gap-1.5 text-sm font-semibold text-coral-400 mt-3">
+                <PencilIcon className="size-4" /> Open in entry mode
+                <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
+              </p>
             </Link>
           ))}
         </div>

@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { TRANSECT } from "@/data/khetlapur";
 import { useLocalState } from "@/lib/useLocalState";
 import { rowsToTable } from "@/lib/exportReport";
+import { XIcon, PlusIcon } from "@/components/Icons";
 import { ModeTabs, MetaFields, ChartCaption, ExportBar, useMeta, useMode } from "@/components/Assess";
 
 // stylised elevation profile: heights/colors per Khetlapur niche
@@ -116,7 +117,7 @@ export default function TransectStrip() {
                   <input type="text" value={n.soil} placeholder="Soil type"
                     onChange={(e) => update(i, { soil: e.target.value })} className={`${inputCls} w-40`} />
                   <button onClick={() => setNiches(niches.filter((_, j) => j !== i))}
-                    className="text-navy/40 hover:text-coral-400 font-bold px-1.5" aria-label="Remove niche">✕</button>
+                    className="grid place-items-center size-7 rounded-md text-navy/40 hover:text-coral-400 hover:bg-coral-400/10 active:scale-90 transition-all outline-none focus-visible:ring-2 focus-visible:ring-coral-400" aria-label="Remove niche"><XIcon className="size-4" /></button>
                 </div>
                 <div className="mt-2 grid gap-2 sm:grid-cols-2">
                   <textarea value={n.observations} rows={2}
@@ -129,9 +130,7 @@ export default function TransectStrip() {
               </div>
             ))}
             <button onClick={() => setNiches([...niches, { name: "", soil: "", observations: "", change20: "" }])}
-              className="rounded-full border border-teal-200 px-4 py-1.5 text-sm font-semibold text-teal-600 hover:border-teal-600 transition-colors">
-              + Add niche
-            </button>
+              className="inline-flex items-center gap-1.5 rounded-full border border-teal-200 px-4 py-1.5 text-sm font-semibold text-teal-600 hover:border-teal-600 hover:bg-teal-50 active:translate-y-px transition-all outline-none focus-visible:ring-2 focus-visible:ring-teal-400"><PlusIcon className="size-4" /> Add niche</button>
           </div>
 
           <div className="mt-5">

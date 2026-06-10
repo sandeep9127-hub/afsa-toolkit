@@ -4,6 +4,7 @@ import { useMemo, useRef, useState } from "react";
 import { CLD_NODES, CLD_EDGES, CLD_LOOPS, LEVERAGE_EXPLANATION } from "@/data/khetlapur";
 import { useLocalState } from "@/lib/useLocalState";
 import { rowsToTable } from "@/lib/exportReport";
+import { XIcon, PlusIcon } from "@/components/Icons";
 import { ModeTabs, MetaFields, ChartCaption, ExportBar, useMeta, useMode } from "@/components/Assess";
 
 const W = 810, H = 560;
@@ -124,15 +125,13 @@ function YourCldBuilder() {
             onKeyDown={(e) => e.key === "Enter" && addVariable()}
             className="rounded-lg border border-teal-200 bg-white px-3 py-1.5 text-sm focus:outline-none focus:border-teal-600 min-w-64"
           />
-          <button onClick={addVariable} className="rounded-full bg-teal-600 px-4 py-1.5 text-white text-sm font-semibold hover:bg-teal-900 transition-colors">
-            + Add variable
-          </button>
+          <button onClick={addVariable} className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-teal-600 px-4 py-1.5 text-white text-sm font-semibold hover:bg-teal-900 active:translate-y-px transition-all outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-teal-400"><PlusIcon className="size-4" /> Add variable</button>
         </div>
         <div className="mt-2.5 flex flex-wrap gap-1.5">
           {cld.variables.map((v, i) => (
             <span key={i} className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium ${i === leverageIdx ? "bg-coral-400 border-coral-400 text-white" : "bg-teal-50 border-teal-200 text-teal-900"}`}>
               {v}
-              <button onClick={() => removeVariable(i)} className="font-bold opacity-60 hover:opacity-100" aria-label={`Remove ${v}`}>✕</button>
+              <button onClick={() => removeVariable(i)} className="font-bold opacity-60 hover:opacity-100" aria-label={`Remove ${v}`}><XIcon className="size-4" /></button>
             </span>
           ))}
         </div>
@@ -162,7 +161,7 @@ function YourCldBuilder() {
                 {cld.edges.map((e, i) => (
                   <span key={i} className="inline-flex items-center gap-1.5 rounded-full bg-peri-100/60 border border-peri-200 px-3 py-1 text-xs text-navy">
                     {cld.variables[e.from]} <strong className={e.sign === "+" ? "text-teal-600" : "text-[#c2602e]"}>{e.sign === "+" ? "+" : "−"}→</strong> {cld.variables[e.to]}
-                    <button onClick={() => setCld({ ...cld, edges: cld.edges.filter((_, j) => j !== i) })} className="font-bold opacity-60 hover:opacity-100" aria-label="Remove link">✕</button>
+                    <button onClick={() => setCld({ ...cld, edges: cld.edges.filter((_, j) => j !== i) })} className="font-bold opacity-60 hover:opacity-100" aria-label="Remove link"><XIcon className="size-4" /></button>
                   </span>
                 ))}
               </div>
@@ -170,6 +169,20 @@ function YourCldBuilder() {
           </div>
         )}
       </div>
+
+      {!(n >= 2 && cld.edges.length > 0) && (
+        <div className="mt-4 rounded-(--radius-soft) border border-dashed border-teal-200 bg-teal-50/30 p-8 text-center">
+          <svg viewBox="0 0 24 24" className="mx-auto size-9 text-teal-400" fill="none" stroke="currentColor" strokeWidth={1.4} aria-hidden>
+            <circle cx="5" cy="6" r="2.5" /><circle cx="19" cy="6" r="2.5" /><circle cx="12" cy="18" r="2.5" />
+            <path d="M7.3 7.3 10 15.5M16.7 7.3 14 15.5M7.5 6h9" strokeLinecap="round" strokeDasharray="0.1 3" />
+          </svg>
+          <p className="mt-3 text-sm font-semibold text-teal-900">Your diagram will draw itself here</p>
+          <p className="mt-1 text-xs text-navy/60 max-w-sm mx-auto leading-relaxed">
+            Add at least two variables and one link between them. As links accumulate, the most-connected
+            variable is highlighted automatically as your leverage point.
+          </p>
+        </div>
+      )}
 
       {n >= 2 && cld.edges.length > 0 && (
         <div ref={chartRef} className="mt-4 rounded-(--radius-soft) border border-teal-200 bg-white p-4">

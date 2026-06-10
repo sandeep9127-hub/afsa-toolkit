@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { LIVELIHOODS } from "@/data/khetlapur";
 import { useLocalState } from "@/lib/useLocalState";
 import { rowsToTable } from "@/lib/exportReport";
+import { XIcon, PlusIcon } from "@/components/Icons";
 import { ModeTabs, MetaFields, ChartCaption, ExportBar, useMeta, useMode, type Mode } from "@/components/Assess";
 
 type YourRow = { activity: string; now: number; then20: number; incomeK: number };
@@ -89,11 +90,9 @@ export default function LivelihoodSlider() {
                     <td className="py-2 pl-1">
                       <button
                         onClick={() => setYourRows(yourRows.filter((_, j) => j !== i))}
-                        className="text-navy/40 hover:text-coral-400 font-bold px-1.5"
+                        className="grid place-items-center size-7 rounded-md text-navy/40 hover:text-coral-400 hover:bg-coral-400/10 active:scale-90 transition-all outline-none focus-visible:ring-2 focus-visible:ring-coral-400"
                         aria-label={`Remove ${r.activity || "row"}`}
-                      >
-                        ✕
-                      </button>
+                      ><XIcon className="size-4" /></button>
                     </td>
                   </tr>
                 ))}
@@ -101,10 +100,8 @@ export default function LivelihoodSlider() {
             </table>
             <button
               onClick={() => setYourRows([...yourRows, { activity: "", now: 0, then20: 0, incomeK: 0 }])}
-              className="mt-3 rounded-full border border-teal-200 px-4 py-1.5 text-sm font-semibold text-teal-600 hover:border-teal-600 transition-colors"
-            >
-              + Add livelihood
-            </button>
+              className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-teal-200 px-4 py-1.5 text-sm font-semibold text-teal-600 hover:border-teal-600 hover:bg-teal-50 active:translate-y-px transition-all outline-none focus-visible:ring-2 focus-visible:ring-teal-400"
+            ><PlusIcon className="size-4" /> Add livelihood</button>
           </div>
 
           <div ref={chartRef} className="mt-4 rounded-(--radius-soft) border border-teal-200 bg-white p-5">

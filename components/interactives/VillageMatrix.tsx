@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { VILLAGES, VILLAGE_CRITERIA } from "@/data/khetlapur";
 import { useLocalState } from "@/lib/useLocalState";
 import { rowsToTable } from "@/lib/exportReport";
+import { XIcon, PlusIcon } from "@/components/Icons";
 import { ModeTabs, MetaFields, ChartCaption, ExportBar, useMeta, useMode } from "@/components/Assess";
 
 type YourData = { criteria: string[]; villages: { name: string; flags: boolean[]; selected: boolean }[] };
@@ -97,7 +98,7 @@ export default function VillageMatrix() {
                       ))}
                       <td className="p-2">
                         <button onClick={() => setYours({ ...yours, villages: yours.villages.filter((_, j) => j !== vi) })}
-                          className="text-navy/40 hover:text-coral-400 font-bold px-1" aria-label="Remove village">✕</button>
+                          className="grid place-items-center size-7 rounded-md text-navy/40 hover:text-coral-400 hover:bg-coral-400/10 active:scale-90 transition-all outline-none focus-visible:ring-2 focus-visible:ring-coral-400" aria-label="Remove village"><XIcon className="size-4" /></button>
                       </td>
                     </tr>
                   ))}
@@ -114,9 +115,7 @@ export default function VillageMatrix() {
           </div>
 
           <button onClick={() => setYours({ ...yours, villages: [...yours.villages, { name: "", flags: Array(yours.criteria.length).fill(false), selected: false }] })}
-            className="mt-3 rounded-full border border-teal-200 px-4 py-1.5 text-sm font-semibold text-teal-600 hover:border-teal-600 transition-colors">
-            + Add village
-          </button>
+            className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-teal-200 px-4 py-1.5 text-sm font-semibold text-teal-600 hover:border-teal-600 hover:bg-teal-50 active:translate-y-px transition-all outline-none focus-visible:ring-2 focus-visible:ring-teal-400"><PlusIcon className="size-4" /> Add village</button>
 
           <div className="mt-5">
             <ExportBar chartRef={chartRef} meta={meta} toolName="Village Selection Matrix" filename="afsa-village-selection" getTableHtml={tableHtml} />

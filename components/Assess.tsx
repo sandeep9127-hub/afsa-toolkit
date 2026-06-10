@@ -3,6 +3,7 @@
 import { useEffect, useState, type RefObject } from "react";
 import { useLocalState } from "@/lib/useLocalState";
 import { downloadPng, nodeToPng, openReport } from "@/lib/exportReport";
+import { DownloadIcon, FileIcon, PencilIcon, EyeIcon } from "@/components/Icons";
 
 export type Mode = "example" | "yours";
 
@@ -20,19 +21,17 @@ export function useMode(): [Mode, (m: Mode) => void] {
 }
 
 export function ModeTabs({ mode, setMode }: { mode: Mode; setMode: (m: Mode) => void }) {
+  const tab = (active: boolean, activeCls: string) =>
+    `inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-teal-400 ${
+      active ? activeCls : "text-navy/60 hover:text-teal-700"
+    }`;
   return (
-    <div className="inline-flex rounded-full border border-teal-200 bg-white p-1 text-sm font-semibold">
-      <button
-        onClick={() => setMode("example")}
-        className={`rounded-full px-4 py-1.5 transition-colors ${mode === "example" ? "bg-teal-600 text-white" : "text-navy/70 hover:text-teal-600"}`}
-      >
-        Khetlapur example
+    <div role="tablist" aria-label="Data source" className="inline-flex rounded-full border border-teal-200 bg-white p-1 text-sm font-semibold">
+      <button role="tab" aria-selected={mode === "example"} onClick={() => setMode("example")} className={tab(mode === "example", "bg-teal-600 text-white shadow-sm")}>
+        <EyeIcon className="size-4" /> Khetlapur example
       </button>
-      <button
-        onClick={() => setMode("yours")}
-        className={`rounded-full px-4 py-1.5 transition-colors ${mode === "yours" ? "bg-coral-400 text-white" : "text-navy/70 hover:text-coral-400"}`}
-      >
-        ✎ Your landscape
+      <button role="tab" aria-selected={mode === "yours"} onClick={() => setMode("yours")} className={tab(mode === "yours", "bg-coral-400 text-white shadow-sm")}>
+        <PencilIcon className="size-4" /> Your landscape
       </button>
     </div>
   );
@@ -122,21 +121,28 @@ export function ExportBar({
     }
   };
 
+  const Spinner = () => (
+    <svg className="size-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2.5" strokeOpacity="0.25" />
+      <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+    </svg>
+  );
+
   return (
     <div className="flex flex-wrap items-center gap-2.5">
       <button
         onClick={png}
         disabled={busy !== null}
-        className="rounded-full bg-teal-600 px-5 py-2.5 text-white text-sm font-semibold hover:bg-teal-900 transition-colors disabled:opacity-50"
+        className="inline-flex items-center gap-2 rounded-full bg-teal-600 px-5 py-2.5 text-white text-sm font-semibold hover:bg-teal-900 active:translate-y-px transition-all disabled:opacity-50 disabled:active:translate-y-0 outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-teal-400"
       >
-        {busy === "png" ? "Preparing…" : "⬇ Download PNG"}
+        {busy === "png" ? <><Spinner /> Preparing…</> : <><DownloadIcon className="size-4" /> Download PNG</>}
       </button>
       <button
         onClick={report}
         disabled={busy !== null}
-        className="rounded-full border-2 border-teal-600 px-5 py-2 text-teal-600 text-sm font-semibold hover:bg-teal-50 transition-colors disabled:opacity-50"
+        className="inline-flex items-center gap-2 rounded-full border-2 border-teal-600 px-5 py-2 text-teal-600 text-sm font-semibold hover:bg-teal-50 active:translate-y-px transition-all disabled:opacity-50 disabled:active:translate-y-0 outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-teal-400"
       >
-        {busy === "report" ? "Preparing…" : "📄 Download report (PDF)"}
+        {busy === "report" ? <><Spinner /> Preparing…</> : <><FileIcon className="size-4" /> Download report (PDF)</>}
       </button>
       <span className="text-[11px] text-navy/55 leading-snug max-w-60">
         The report opens as a print page — choose &ldquo;Save as PDF&rdquo;. Data stays on this device only.

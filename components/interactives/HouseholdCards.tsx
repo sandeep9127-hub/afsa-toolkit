@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { HOUSEHOLDS } from "@/data/khetlapur";
 import { useLocalState } from "@/lib/useLocalState";
 import { rowsToTable } from "@/lib/exportReport";
+import { XIcon, PlusIcon } from "@/components/Icons";
 import { ModeTabs, MetaFields, ChartCaption, ExportBar, useMeta, useMode } from "@/components/Assess";
 
 type Finding = { indicator: string; valuePct: number; note: string };
@@ -66,13 +67,11 @@ export default function HouseholdCards() {
                 <input type="text" value={f.note} placeholder="note…"
                   onChange={(e) => update(i, { note: e.target.value })} className={`${inputCls} flex-1 min-w-36 text-xs`} />
                 <button onClick={() => setFindings(findings.filter((_, j) => j !== i))}
-                  className="text-navy/40 hover:text-coral-400 font-bold px-1" aria-label="Remove indicator">✕</button>
+                  className="grid place-items-center size-7 rounded-md text-navy/40 hover:text-coral-400 hover:bg-coral-400/10 active:scale-90 transition-all outline-none focus-visible:ring-2 focus-visible:ring-coral-400" aria-label="Remove indicator"><XIcon className="size-4" /></button>
               </div>
             ))}
             <button onClick={() => setFindings([...findings, { indicator: "", valuePct: 0, note: "" }])}
-              className="mt-3 rounded-full border border-teal-200 px-4 py-1.5 text-sm font-semibold text-teal-600 hover:border-teal-600 transition-colors">
-              + Add indicator
-            </button>
+              className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-teal-200 px-4 py-1.5 text-sm font-semibold text-teal-600 hover:border-teal-600 hover:bg-teal-50 active:translate-y-px transition-all outline-none focus-visible:ring-2 focus-visible:ring-teal-400"><PlusIcon className="size-4" /> Add indicator</button>
           </div>
 
           <div ref={chartRef} className="mt-4 rounded-(--radius-soft) border border-teal-200 bg-white p-5">
