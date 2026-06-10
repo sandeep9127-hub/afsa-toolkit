@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { SERVICES, type Service } from "@/data/khetlapur";
 import { useLocalState } from "@/lib/useLocalState";
 import { rowsToTable } from "@/lib/exportReport";
-import { ModeTabs, MetaFields, ChartCaption, ExportBar, useMeta, type Mode } from "@/components/Assess";
+import { ModeTabs, MetaFields, ChartCaption, ExportBar, useMeta, useMode, type Mode } from "@/components/Assess";
 
 const W = 680, H = 420, CX = 340, CY = 210;
 
@@ -60,7 +60,7 @@ function RadialMap({
 }
 
 export default function ServiceMap() {
-  const [mode, setMode] = useState<Mode>("example");
+  const [mode, setMode] = useMode();
   const [sel, setSel] = useState<string | null>(null);
   const [yourServices, setYourServices] = useLocalState<YourService[]>("afsa.services.rows", STARTER);
   const [meta, setMeta] = useMeta();

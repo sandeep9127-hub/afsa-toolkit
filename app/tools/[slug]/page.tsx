@@ -131,7 +131,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
         </section>
 
         {/* Interactive */}
-        <section className="mt-12 no-print">
+        <section id="try-it" className="mt-12 no-print scroll-mt-20">
           <div className="flex items-center gap-2.5">
             <span className="rounded-full bg-coral-400 text-white text-[11px] font-bold px-3 py-1">TRY IT · KHETLAPUR</span>
             <h2 className="text-xl font-bold text-teal-900">See the tool in action</h2>

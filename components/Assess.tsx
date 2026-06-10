@@ -1,10 +1,23 @@
 "use client";
 
-import { useState, type RefObject } from "react";
+import { useEffect, useState, type RefObject } from "react";
 import { useLocalState } from "@/lib/useLocalState";
 import { downloadPng, nodeToPng, openReport } from "@/lib/exportReport";
 
 export type Mode = "example" | "yours";
+
+// Mode state that honours a #enter hash (links from the Online Tools page
+// open the tool directly in entry mode, scrolled to the interactive).
+export function useMode(): [Mode, (m: Mode) => void] {
+  const [mode, setMode] = useState<Mode>("example");
+  useEffect(() => {
+    if (window.location.hash === "#enter") {
+      setMode("yours");
+      setTimeout(() => document.getElementById("try-it")?.scrollIntoView({ block: "start" }), 100);
+    }
+  }, []);
+  return [mode, setMode];
+}
 
 export function ModeTabs({ mode, setMode }: { mode: Mode; setMode: (m: Mode) => void }) {
   return (

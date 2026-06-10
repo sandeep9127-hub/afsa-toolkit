@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { CALENDAR, SEASONS } from "@/data/khetlapur";
 import { useLocalState } from "@/lib/useLocalState";
 import { rowsToTable } from "@/lib/exportReport";
-import { ModeTabs, MetaFields, ChartCaption, ExportBar, useMeta, type Mode } from "@/components/Assess";
+import { ModeTabs, MetaFields, ChartCaption, ExportBar, useMeta, useMode, type Mode } from "@/components/Assess";
 
 const LEVELS = [
   { label: "Scarce / market-dependent", cls: "bg-amber-300/35 text-[#8a5a1e]" },
@@ -22,7 +22,7 @@ const EMPTY_ROWS: YourRow[] = CALENDAR.map((r) => ({
 }));
 
 export default function SeasonalGrid() {
-  const [mode, setMode] = useState<Mode>("example");
+  const [mode, setMode] = useMode();
   const [active, setActive] = useState<string | null>(null);
   const [hidden, setHidden] = useState<Set<string>>(new Set());
   const [yourRows, setYourRows] = useLocalState<YourRow[]>("afsa.calendar.rows", EMPTY_ROWS);

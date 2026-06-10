@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { LIVELIHOODS } from "@/data/khetlapur";
 import { useLocalState } from "@/lib/useLocalState";
 import { rowsToTable } from "@/lib/exportReport";
-import { ModeTabs, MetaFields, ChartCaption, ExportBar, useMeta, type Mode } from "@/components/Assess";
+import { ModeTabs, MetaFields, ChartCaption, ExportBar, useMeta, useMode, type Mode } from "@/components/Assess";
 
 type YourRow = { activity: string; now: number; then20: number; incomeK: number };
 
@@ -16,7 +16,7 @@ const STARTER_ROWS: YourRow[] = [
 ];
 
 export default function LivelihoodSlider() {
-  const [mode, setMode] = useState<Mode>("example");
+  const [mode, setMode] = useMode();
   const [t, setT] = useState(1);
   const [yourRows, setYourRows] = useLocalState<YourRow[]>("afsa.livelihood.rows", STARTER_ROWS);
   const [meta, setMeta] = useMeta();

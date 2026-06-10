@@ -5,7 +5,7 @@ import { PRINCIPLES } from "@/data/principles";
 import { SCORES, SCORE_THRESHOLD_LOW } from "@/data/khetlapur";
 import { useLocalState } from "@/lib/useLocalState";
 import { rowsToTable } from "@/lib/exportReport";
-import { ModeTabs, MetaFields, ChartCaption, ExportBar, useMeta, type Mode } from "@/components/Assess";
+import { ModeTabs, MetaFields, ChartCaption, ExportBar, useMeta, useMode, type Mode } from "@/components/Assess";
 
 const KHETLAPUR = PRINCIPLES.map((p) => SCORES.find((s) => s.principleId === p.id)!.score);
 
@@ -85,7 +85,7 @@ function RadarChart({
 }
 
 export default function ScorecardRadar() {
-  const [mode, setMode] = useState<Mode>("example");
+  const [mode, setMode] = useMode();
   const [exampleValues, setExampleValues] = useState<number[]>([...KHETLAPUR]);
   const [yourValues, setYourValues] = useLocalState<number[]>("afsa.scorecard.values", Array(N).fill(2));
   const [yourNotes, setYourNotes] = useLocalState<string[]>("afsa.scorecard.notes", Array(N).fill(""));
