@@ -257,20 +257,52 @@ export const LEVERAGE_EXPLANATION =
   "Counting links, 'Active producer collectives (incl. women)' touches five connections — more than any other node. Strengthening it weakens the dealer's monopoly on advice (via knowledge sharing), bypasses middlemen (collective marketing), and builds voice in planning. It is achievable within 2–3 years — the guidebook's test for a usable leverage point.";
 
 // ——— DQQ demo ———
-export const DQQ_GROUPS = [
-  { group: "Grains & staples", examples: "rice, roti, potato", khetlapur: 100 },
-  { group: "Pulses", examples: "dal, chickpeas", khetlapur: 55 },
-  { group: "Nuts & seeds", examples: "peanuts, jackfruit seeds", khetlapur: 20 },
-  { group: "Dairy", examples: "milk, curd, paneer", khetlapur: 35 },
-  { group: "Eggs", examples: "any eggs", khetlapur: 25 },
-  { group: "Flesh foods", examples: "fish, chicken, meat", khetlapur: 40 },
-  { group: "Dark leafy greens", examples: "saag, spinach, amaranth", khetlapur: 60 },
-  { group: "Vitamin-A fruits & veg", examples: "carrot, pumpkin, ripe mango, papaya", khetlapur: 30 },
-  { group: "Other vegetables", examples: "brinjal, okra, gourds, beans", khetlapur: 70 },
-  { group: "Other fruits", examples: "banana, guava, apple", khetlapur: 25 },
+// Items mirror the DQQ structure (dietquality.org). Each item is tagged with the
+// indicator components it feeds: one of the 10 MDD food groups, the NCD-Protect
+// set (9 components), the NCD-Risk set, and the All-5 categories.
+export type DqqItem = {
+  id: string;
+  label: string;
+  examples: string;
+  mddGroup?: number; // 1–10
+  protect?: boolean; // one of the 9 NCD-Protect components
+  risk?: boolean; // NCD-Risk component
+  all5?: "staple" | "veg" | "fruit" | "pulse" | "asf";
+};
+
+export const DQQ_ITEMS: DqqItem[] = [
+  { id: "staples", label: "Staple foods", examples: "rice, roti, potato", mddGroup: 1, all5: "staple" },
+  { id: "wholegrains", label: "Whole grains", examples: "millets, whole wheat, dalia", mddGroup: 1, protect: true, all5: "staple" },
+  { id: "pulses", label: "Pulses", examples: "dal, chana, khichdi", mddGroup: 2, protect: true, all5: "pulse" },
+  { id: "nuts", label: "Nuts & seeds", examples: "peanuts, sesame, jackfruit seeds", mddGroup: 3, protect: true, all5: "pulse" },
+  { id: "dairy", label: "Dairy", examples: "milk, curd, paneer", mddGroup: 4, all5: "asf" },
+  { id: "eggs", label: "Eggs", examples: "any eggs", mddGroup: 6, all5: "asf" },
+  { id: "flesh", label: "Fish, poultry or meat", examples: "fish, dried fish, chicken", mddGroup: 5, all5: "asf" },
+  { id: "greens", label: "Dark green leafy vegetables", examples: "saag, spinach, amaranth", mddGroup: 7, protect: true, all5: "veg" },
+  { id: "vitaveg", label: "Vitamin-A rich vegetables", examples: "pumpkin, carrot, sweet potato", mddGroup: 8, protect: true, all5: "veg" },
+  { id: "otherveg", label: "Other vegetables", examples: "brinjal, okra, gourds, beans", mddGroup: 9, protect: true, all5: "veg" },
+  { id: "vitafruit", label: "Vitamin-A rich fruits", examples: "ripe mango, ripe papaya", mddGroup: 8, protect: true, all5: "fruit" },
+  { id: "citrus", label: "Citrus fruits", examples: "orange, lemon, mosambi", mddGroup: 10, protect: true, all5: "fruit" },
+  { id: "otherfruit", label: "Other fruits", examples: "banana, guava, jackfruit", mddGroup: 10, protect: true, all5: "fruit" },
+  // NCD-Risk section (demo adaptation; full DQQ uses 9 components)
+  { id: "softdrinks", label: "Sugary drinks", examples: "cola, packaged juice, energy drinks", risk: true },
+  { id: "sweets", label: "Sweets", examples: "mithai, chocolate, ice cream", risk: true },
+  { id: "bakery", label: "Sweet bakery & biscuits", examples: "biscuits, cake, jalebi", risk: true },
+  { id: "snacks", label: "Packaged salty snacks", examples: "chips, chanachur, namkeen", risk: true },
+  { id: "instant", label: "Instant noodles / fast food", examples: "Maggi, chowmein, burger, pizza", risk: true },
+  { id: "fried", label: "Deep-fried foods", examples: "puri, pakora, samosa", risk: true },
+  { id: "procmeat", label: "Processed meat", examples: "sausages, salami", risk: true },
+  { id: "redmeat", label: "Red meat", examples: "mutton, pork, beef", risk: true },
 ];
 
-export const DQQ_AVG = 4.1; // Khetlapur average food groups consumed (of 10)
+// Reference values: India national (dietquality.org, Aug–Nov 2021) and Khetlapur
+// (fictional, from the 20-person village sample).
+export type DqqBenchmark = {
+  dds: number; mdd: number; all5: number; protect: number; risk: number; gdr: number; zeroVegFruit: number;
+};
+
+export const DQQ_INDIA: DqqBenchmark = { dds: 4.6, mdd: 41, all5: 28, protect: 3.4, risk: 1.5, gdr: 10.9, zeroVegFruit: 22 };
+export const DQQ_KHETLAPUR: DqqBenchmark = { dds: 4.1, mdd: 32, all5: 17, protect: 2.9, risk: 1.1, gdr: 10.8, zeroVegFruit: 26 };
 
 // ——— Visioning ———
 export type VisionGroup = { group: string; color: string; statements: string[] };

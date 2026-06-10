@@ -150,9 +150,9 @@ export const TOOLS: Tool[] = [
     purpose:
       "A 24-hour recall survey, adapted per country (India, Bangladesh, Nepal versions exist at dietquality.org), capturing consumption of key foods including processed and sugary foods. AFSA adds one column: the source of each food — own production, market, gathered, or government support.",
     purposePoints: [
-      "Estimate dietary diversity and diet quality, comparable to the national average",
+      "Estimate dietary diversity (DDS, MDD) and overall diet quality (GDR score), comparable to the national average",
       "Understand market dependence vs self-sufficiency in the diet",
-      "Capture protective food consumption and unhealthy food consumption",
+      "Capture protective food consumption (NCD-Protect) and unhealthy food consumption (NCD-Risk)",
     ],
     steps: [
       "Download the country-adapted DQQ (dietquality.org) in the local language.",
@@ -164,10 +164,11 @@ export const TOOLS: Tool[] = [
       "How many of the 10 food groups did people consume?",
       "Which groups come from own production, which from the market?",
       "How prevalent are sugary drinks, instant noodles, packaged snacks?",
+      "Is a 'fine' GDR score hiding low protective-food intake behind low junk-food intake?",
     ],
     interactive: "dqq-quiz",
     interactiveIntro:
-      "Try it on yourself. Tick what you ate yesterday and compare your dietary diversity with Khetlapur's average of 4.1 food groups out of 10.",
+      "Try it on yourself. Tick what you ate and drank yesterday — the panel computes the same indicators the Global Diet Quality Project reports (DDS, MDD, All-5, NCD-Protect, NCD-Risk, GDR) and compares you with Khetlapur and the India national average.",
     templateCols: ["#", "Food group (local examples)", "Yes / No", "Source: 1-Own · 2-Market · 3-Gathered · 4-Support"],
   },
   {
