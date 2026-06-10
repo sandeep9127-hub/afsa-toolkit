@@ -63,7 +63,7 @@ export default function Home() {
         </p>
         <ol className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
           {CHAIN.map((step, i) => (
-            <li key={step.label} className="relative">
+            <li key={step.label} className="relative reveal" style={{ "--i": i } as React.CSSProperties}>
               <div className={`${step.color} rounded-(--radius-soft) p-4 text-white h-full`}>
                 <span className="text-xs font-bold opacity-70">STEP {i + 1}</span>
                 <p className="font-semibold leading-snug mt-1">{step.label}</p>
@@ -82,8 +82,8 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 py-14">
           <h2 className="text-2xl sm:text-3xl font-bold text-teal-900">More than a diagnostic</h2>
           <div className="mt-8 grid gap-6 md:grid-cols-3">
-            {FEATURES.map((f) => (
-              <div key={f.title} className="bg-white rounded-(--radius-soft) p-6 border border-peri-100">
+            {FEATURES.map((f, i) => (
+              <div key={f.title} className="bg-white rounded-(--radius-soft) p-6 border border-peri-100 reveal" style={{ "--i": i } as React.CSSProperties}>
                 <h3 className="font-bold text-peri-700">{f.title}</h3>
                 <p className="mt-2 text-sm text-navy/80 leading-relaxed">{f.body}</p>
               </div>
@@ -122,14 +122,14 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-4 sm:px-6 pb-20">
         <h2 className="text-2xl sm:text-3xl font-bold text-teal-900">Three phases, one journey</h2>
         <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-          {PHASES.map((ph) => {
+          {PHASES.map((ph, i) => {
             const tone =
               ph.id === "diagnosing" ? "border-teal-600 bg-teal-50/60" :
               ph.id === "visioning" ? "border-rose-400 bg-rose-400/10" :
               ph.id === "scoping" ? "border-peri-500 bg-peri-100/50" :
               "border-peri-300 bg-peri-100/30";
             return (
-              <Link key={ph.id} href={`/journey#${ph.id}`} className={`rounded-(--radius-soft) border-l-4 ${tone} p-5 hover:shadow-md transition-shadow`}>
+              <Link key={ph.id} href={`/journey#${ph.id}`} style={{ "--i": i } as React.CSSProperties} className={`reveal lift rounded-(--radius-soft) border-l-4 ${tone} p-5 hover:shadow-md`}>
                 <p className="text-xs font-bold text-navy/60">PHASE {ph.num} · {ph.timeline}</p>
                 <h3 className="font-bold text-teal-900 mt-1">{ph.name.replace(/^.*?: /, "")}</h3>
                 <p className="text-sm mt-2 text-navy/75 leading-relaxed">{ph.tagline}</p>

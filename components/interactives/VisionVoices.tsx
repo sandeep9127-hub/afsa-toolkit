@@ -140,7 +140,7 @@ export default function VisionVoices() {
             ))}
           </div>
 
-          <div className="mt-5 grid gap-3 sm:grid-cols-2">
+          <div key={idx} className="mt-5 grid gap-3 sm:grid-cols-2 swap">
             {v.statements.map((s) => (
               <blockquote key={s} className={`rounded-xl border-l-4 ${tone.quote} p-4 text-navy/90 leading-relaxed text-sm`}>
                 &ldquo;{s}&rdquo;

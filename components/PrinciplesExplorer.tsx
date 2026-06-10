@@ -22,12 +22,13 @@ export default function PrinciplesExplorer() {
   return (
     <div className="grid gap-6 lg:grid-cols-[5fr_7fr]">
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-2 content-start">
-        {PRINCIPLES.map((p) => (
+        {PRINCIPLES.map((p, i) => (
           <button
             key={p.id}
             id={p.id}
             onClick={() => setActiveId(p.id)}
-            className={`text-left rounded-(--radius-soft) px-3.5 py-3 border transition-all scroll-mt-24 ${
+            style={{ "--i": i } as React.CSSProperties}
+            className={`reveal text-left rounded-(--radius-soft) px-3.5 py-3 border transition-colors scroll-mt-24 ${
               p.id === activeId
                 ? `${CLUSTER_TONES[p.cluster]} text-white border-transparent shadow-md`
                 : "bg-white border-teal-200 text-teal-900 hover:border-teal-600"

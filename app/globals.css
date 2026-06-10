@@ -25,6 +25,9 @@
 
   --radius-soft: 14px;
 
+  /* Strong ease-out for entrances — the built-in curves are too weak. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+
   --animate-pulse-soft: pulse-soft 2.2s ease-in-out infinite;
 
   @keyframes pulse-soft {
@@ -35,6 +38,40 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+/* ——— Motion ———
+   Restrained, purposeful. First-view stagger reveals (transform + opacity only,
+   under 300ms, strong ease-out). Disabled wholesale by the reduced-motion guard.
+   Never start from scale(0): entrances rise 6px from a near-visible state. */
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  animation: reveal 280ms var(--ease-out) forwards;
+  animation-delay: calc(var(--i, 0) * 55ms);
+}
+
+/* Content swap — keyed remount fades the new state in, smoothing a hard cut. */
+@keyframes swap {
+  from { opacity: 0; transform: translateY(3px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.swap {
+  animation: swap 180ms var(--ease-out);
+}
+
+/* Hover lift — gated to real pointers so touch taps don't trigger a stuck hover */
+@media (hover: hover) and (pointer: fine) {
+  .lift {
+    transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+  }
+  .lift:hover {
+    transform: translateY(-2px);
+  }
 }
 
 body {

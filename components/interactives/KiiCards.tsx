@@ -101,7 +101,7 @@ export default function KiiCards() {
               </button>
             ))}
           </div>
-          <div className="mt-5">
+          <div key={idx} className="mt-5 swap">
             <h4 className="font-bold text-teal-900">{inf.who}</h4>
             <blockquote className="mt-3 border-l-4 border-coral-400 bg-coral-400/10 rounded-r-lg p-4 text-navy/90 italic leading-relaxed">
               &ldquo;{inf.quote}&rdquo;

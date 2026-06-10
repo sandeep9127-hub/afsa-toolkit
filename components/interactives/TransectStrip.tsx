@@ -146,7 +146,7 @@ export default function TransectStrip() {
               setSel={setSel}
             />
           </div>
-          <div className="border-t border-teal-50 p-4 sm:p-5">
+          <div key={sel} className="border-t border-teal-50 p-4 sm:p-5 swap">
             <div className="flex items-baseline justify-between flex-wrap gap-2">
               <h4 className="font-bold text-teal-900">{active.name}</h4>
               <span className="text-xs text-navy/60">Soil: {active.soil}</span>

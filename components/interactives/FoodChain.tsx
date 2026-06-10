@@ -166,7 +166,7 @@ export default function FoodChain() {
             </div>
           </div>
 
-          <div className="mt-4 grid gap-3 sm:grid-cols-2 text-sm">
+          <div key={idx} className="mt-4 grid gap-3 sm:grid-cols-2 text-sm swap">
             <div className="rounded-lg bg-teal-50/70 border border-teal-200 p-3.5 space-y-1.5">
               <p><span className="font-bold text-xs text-navy/60">ACTOR · </span><span className="text-navy/90">{step.actor}</span></p>
               <p><span className="font-bold text-xs text-navy/60">TECHNOLOGY & ENERGY · </span><span className="text-navy/90">{step.tech}</span></p>

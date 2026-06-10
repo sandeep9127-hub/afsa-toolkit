@@ -160,11 +160,12 @@ export default function OnlineToolsPage() {
           report for your assessment write-up.
         </p>
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          {ENTRY_TOOLS.map((t) => (
+          {ENTRY_TOOLS.map((t, i) => (
             <Link
               key={t.href}
               href={t.href}
-              className="group rounded-(--radius-soft) border border-teal-200 bg-white p-5 hover:border-coral-400 hover:shadow-md transition-all"
+              style={{ "--i": i % 8 } as React.CSSProperties}
+              className="group reveal lift rounded-(--radius-soft) border border-teal-200 bg-white p-5 hover:border-coral-400 hover:shadow-md transition-colors"
             >
               <p className="text-[11px] font-bold text-navy/50">{t.phase.toUpperCase()}</p>
               <h3 className="font-bold text-teal-900 mt-1 group-hover:text-teal-600 transition-colors">{t.name}</h3>
