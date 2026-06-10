@@ -1,65 +1,144 @@
-import Image from "next/image";
+import Link from "next/link";
+import { PRINCIPLES } from "@/data/principles";
+import { PHASES } from "@/data/phases";
+
+const CHAIN = [
+  { label: "Listen with the tools", sub: "Walks, calendars, surveys, interviews", color: "bg-peri-500" },
+  { label: "Score 13 principles", sub: "Every tool feeds the scorecard", color: "bg-peri-700" },
+  { label: "Read the radar", sub: "One picture of food system health", color: "bg-teal-600" },
+  { label: "Trace the loops", sub: "Low scores become causal stories", color: "bg-teal-900" },
+  { label: "Find the leverage point", sub: "The node that moves the system", color: "bg-coral-400" },
+  { label: "Vision the future", sub: "Youth and women at the centre", color: "bg-rose-400" },
+];
+
+const FEATURES = [
+  {
+    title: "Participatory & visual",
+    body: "Transect walks, seasonal calendars, livelihood maps — methods communities draw on the ground, designed to include women, youth and marginalized voices.",
+  },
+  {
+    title: "Systemic, not symptomatic",
+    body: "AFSA links lived realities to landscape dynamics and policy structures — uncovering feedback loops and root causes, not isolated indicators.",
+  },
+  {
+    title: "Action-oriented",
+    body: "Outcomes feed community charters, local plans and advocacy — bridging analysis to strategy, voice to policy, knowledge to power.",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main>
+      {/* Hero */}
+      <section className="bg-gradient-to-b from-teal-50/70 to-transparent">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-16 pb-12 sm:pt-24 sm:pb-16">
+          <p className="text-sm font-semibold tracking-wide uppercase text-teal-600 mb-4">
+            Agroecological Food System Assessment
           </p>
+          <h1 className="text-4xl sm:text-6xl font-extrabold text-teal-900 max-w-3xl leading-[1.05]">
+            Assess your food system as a <span className="text-teal-600">living system</span>.
+          </h1>
+          <p className="mt-6 max-w-2xl text-lg text-navy/80 leading-relaxed">
+            AFSA is a participatory methodology for community-led food system transformation — grounded in the
+            13 principles of agroecology. This toolkit walks you through it, hands-on, with a complete worked
+            example from a fictional landscape called <strong>Khetlapur</strong>.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link href="/journey" className="rounded-full bg-teal-600 px-6 py-3 text-white font-semibold hover:bg-teal-900 transition-colors">
+              Start the journey
+            </Link>
+            <Link href="/tools/scorecard" className="rounded-full border-2 border-teal-600 px-6 py-3 text-teal-600 font-semibold hover:bg-teal-50 transition-colors">
+              Try the scorecard
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Synthesis chain */}
+      <section className="mx-auto max-w-6xl px-4 sm:px-6 py-14">
+        <h2 className="text-2xl sm:text-3xl font-bold text-teal-900">How AFSA fits together</h2>
+        <p className="mt-2 max-w-2xl text-navy/75">
+          Every exercise feeds one synthesis: evidence becomes scores, scores become a picture, the picture
+          becomes a diagnosis, and the diagnosis becomes a community&apos;s plan.
+        </p>
+        <ol className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
+          {CHAIN.map((step, i) => (
+            <li key={step.label} className="relative">
+              <div className={`${step.color} rounded-(--radius-soft) p-4 text-white h-full`}>
+                <span className="text-xs font-bold opacity-70">STEP {i + 1}</span>
+                <p className="font-semibold leading-snug mt-1">{step.label}</p>
+                <p className="text-xs mt-1.5 opacity-80 leading-relaxed">{step.sub}</p>
+              </div>
+              {i < CHAIN.length - 1 && (
+                <span className="hidden lg:block absolute top-1/2 -translate-y-1/2 -right-3 z-10 text-teal-400 font-bold">→</span>
+              )}
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {/* What makes it transformative */}
+      <section className="bg-peri-100/40">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 py-14">
+          <h2 className="text-2xl sm:text-3xl font-bold text-teal-900">More than a diagnostic</h2>
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
+            {FEATURES.map((f) => (
+              <div key={f.title} className="bg-white rounded-(--radius-soft) p-6 border border-peri-100">
+                <h3 className="font-bold text-peri-700">{f.title}</h3>
+                <p className="mt-2 text-sm text-navy/80 leading-relaxed">{f.body}</p>
+              </div>
+            ))}
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* Principles preview */}
+      <section className="mx-auto max-w-6xl px-4 sm:px-6 py-14">
+        <div className="flex items-end justify-between gap-4 flex-wrap">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-teal-900">The 13 principles, as a compass</h2>
+            <p className="mt-2 max-w-2xl text-navy/75">
+              Not a checklist — analytical lenses and normative foundations, woven through every phase.
+            </p>
+          </div>
+          <Link href="/framework" className="text-teal-600 font-semibold hover:underline whitespace-nowrap">
+            Explore the framework →
+          </Link>
+        </div>
+        <div className="mt-8 flex flex-wrap gap-2">
+          {PRINCIPLES.map((p) => (
+            <Link
+              key={p.id}
+              href={`/framework#${p.id}`}
+              className="rounded-full bg-teal-50 text-teal-900 border border-teal-200 px-4 py-2 text-sm font-medium hover:bg-teal-600 hover:text-white hover:border-teal-600 transition-colors"
+            >
+              {p.num}. {p.name}
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Phases preview */}
+      <section className="mx-auto max-w-6xl px-4 sm:px-6 pb-20">
+        <h2 className="text-2xl sm:text-3xl font-bold text-teal-900">Three phases, one journey</h2>
+        <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          {PHASES.map((ph) => {
+            const tone =
+              ph.id === "diagnosing" ? "border-teal-600 bg-teal-50/60" :
+              ph.id === "visioning" ? "border-rose-400 bg-rose-400/10" :
+              ph.id === "scoping" ? "border-peri-500 bg-peri-100/50" :
+              "border-peri-300 bg-peri-100/30";
+            return (
+              <Link key={ph.id} href={`/journey#${ph.id}`} className={`rounded-(--radius-soft) border-l-4 ${tone} p-5 hover:shadow-md transition-shadow`}>
+                <p className="text-xs font-bold text-navy/60">PHASE {ph.num} · {ph.timeline}</p>
+                <h3 className="font-bold text-teal-900 mt-1">{ph.name.replace(/^.*?: /, "")}</h3>
+                <p className="text-sm mt-2 text-navy/75 leading-relaxed">{ph.tagline}</p>
+                <p className="text-xs mt-3 font-semibold text-teal-600">{ph.toolSlugs.length} tool{ph.toolSlugs.length > 1 ? "s" : ""} →</p>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+    </main>
   );
 }

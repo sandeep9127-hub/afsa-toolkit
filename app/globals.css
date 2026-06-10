@@ -1,26 +1,86 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  /* CAT brand palette — official CAT Colour Palette HEX codes */
+  --color-teal-900: #334b4a;
+  --color-teal-600: #2e7573;
+  --color-teal-400: #95b1af;
+  --color-teal-200: #b8ccca;
+  --color-teal-50: #e1ede8;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-peri-700: #5e6990;
+  --color-peri-500: #929cc5;
+  --color-peri-300: #afbadc;
+  --color-peri-200: #c0cce9;
+  --color-peri-100: #d0daef;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --color-rose-400: #c68f95;
+  --color-coral-400: #f8a07b;
+  --color-amber-300: #f8ca7c;
+
+  --color-navy: #373f5a;
+
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-disp), var(--font-body), ui-sans-serif, sans-serif;
+
+  --radius-soft: 14px;
+
+  --animate-pulse-soft: pulse-soft 2.2s ease-in-out infinite;
+
+  @keyframes pulse-soft {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.55; }
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #fcfdfc;
+  color: var(--color-teal-900);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.015em;
+}
+
+/* ——— Print styles: tool pages collapse to ink-friendly field templates ——— */
+.print-only {
+  display: none;
+}
+
+@media print {
+  header, footer, nav, .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  body {
+    background: white;
+    color: black;
+    font-size: 11pt;
+  }
+  main {
+    padding: 0 !important;
+    max-width: none !important;
+  }
+  .print-table {
+    page-break-inside: avoid;
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .print-table td, .print-table th {
+    border: 1px solid #555 !important;
+    color: black !important;
+    background: white !important;
+    padding: 10px 8px;
+    text-align: left;
+    font-size: 9.5pt;
+  }
 }
