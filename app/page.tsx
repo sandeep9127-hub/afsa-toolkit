@@ -1,15 +1,7 @@
 import Link from "next/link";
 import { PRINCIPLES } from "@/data/principles";
 import { PHASES } from "@/data/phases";
-
-const CHAIN = [
-  { label: "Listen with the tools", sub: "Walks, calendars, surveys, interviews", color: "bg-peri-500" },
-  { label: "Score 13 principles", sub: "Every tool feeds the scorecard", color: "bg-peri-700" },
-  { label: "Read the radar", sub: "One picture of food system health", color: "bg-teal-600" },
-  { label: "Trace the loops", sub: "Low scores become causal stories", color: "bg-teal-900" },
-  { label: "Find the leverage point", sub: "The node that moves the system", color: "bg-coral-400" },
-  { label: "Vision the future", sub: "Youth and women at the centre", color: "bg-rose-400" },
-];
+import SynthesisChain from "@/components/SynthesisChain";
 
 const FEATURES = [
   {
@@ -61,20 +53,9 @@ export default function Home() {
           Every exercise feeds one synthesis: evidence becomes scores, scores become a picture, the picture
           becomes a diagnosis, and the diagnosis becomes a community&apos;s plan.
         </p>
-        <ol className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
-          {CHAIN.map((step, i) => (
-            <li key={step.label} className="relative reveal" style={{ "--i": i } as React.CSSProperties}>
-              <div className={`${step.color} rounded-(--radius-soft) p-4 text-white h-full`}>
-                <span className="text-xs font-bold opacity-70">STEP {i + 1}</span>
-                <p className="font-semibold leading-snug mt-1">{step.label}</p>
-                <p className="text-xs mt-1.5 opacity-80 leading-relaxed">{step.sub}</p>
-              </div>
-              {i < CHAIN.length - 1 && (
-                <span className="hidden lg:block absolute top-1/2 -translate-y-1/2 -right-3 z-10 text-teal-400 font-bold">→</span>
-              )}
-            </li>
-          ))}
-        </ol>
+        <div className="mt-8">
+          <SynthesisChain />
+        </div>
       </section>
 
       {/* What makes it transformative */}

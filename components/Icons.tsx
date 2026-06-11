@@ -78,3 +78,22 @@ export const CheckIcon = ({ className }: IconProps) => (
     <path d="M20 6 9 17l-5-5" />
   </svg>
 );
+
+export const ChevronRightIcon = ({ className }: IconProps) => (
+  <svg {...base(className)}>
+    <path d="m9 6 6 6-6 6" />
+  </svg>
+);
+
+export const ArrowRightIcon = ({ className }: IconProps) => (
+  <svg {...base(className)}>
+    <path d="M4 12h16M14 6l6 6-6 6" />
+  </svg>
+);
+
+// Destination flag — marks the payoff at the end of the flow.
+export const FlagIcon = ({ className }: IconProps) => (
+  <svg {...base(className)}>
+    <path d="M4 22V4a1 1 0 0 1 1-1h13l-2.5 4L18 11H5" />
+  </svg>
+);

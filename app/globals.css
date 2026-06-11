@@ -64,6 +64,15 @@ html {
   animation: swap 180ms var(--ease-out);
 }
 
+/* One-shot ring on the synthesis-flow payoff card — fires twice after load. */
+@keyframes payoff-pulse {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-coral-400) 60%, transparent); }
+  100% { box-shadow: 0 0 0 16px transparent; }
+}
+.payoff-pulse {
+  animation: payoff-pulse 1.5s var(--ease-out) 0.55s 2;
+}
+
 /* Hover lift — gated to real pointers so touch taps don't trigger a stuck hover */
 @media (hover: hover) and (pointer: fine) {
   .lift {
